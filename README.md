@@ -126,3 +126,14 @@ Some of the key Power BI measures used in the analysis include:
 
 ```DAX
 Total Revenue = SUM('ecommerce_sales_cleaned'[Sales Amount])
+
+Total Orders = DISTINCTCOUNT('ecommerce_sales_cleaned'[Order ID])
+AOV = [Total Revenue] / [Total Orders]
+Non-Delivery Rate =
+DIVIDE(
+    CALCULATE(
+        [Total Orders],
+        'ecommerce_sales_cleaned'[Order Status] IN {"Cancelled", "Returned"}
+    ),
+    [Total Orders]
+)
